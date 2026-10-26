@@ -1,0 +1,6 @@
+{% if page.url != "/" or pluginSettings.applyToHome %}
+{% set gardenBannerData = noteProps | gardenBanner(pluginSettings.properties) %}
+{% if gardenBannerData %}
+<div class="garden-banner{% if pluginSettings.fade %} garden-banner-fade{% endif %}" aria-hidden="true" style="--garden-banner-image: url(&quot;{{ gardenBannerData.image }}&quot;); --garden-banner-y: {{ gardenBannerData.y }}%;"></div>
+{% endif %}
+{% endif %}

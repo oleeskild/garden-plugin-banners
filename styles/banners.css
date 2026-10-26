@@ -1,0 +1,36 @@
+/* The banner sits in the note header; it is lifted to the top of the header
+   and the header makes room for it, so it appears above the title. */
+main.content > header:has(> .garden-banner) {
+  position: relative;
+  padding-top: calc(var(--garden-banner-height, 220px) + 1em);
+}
+
+/* Hidden everywhere else the note's markup is copied (link and search previews) */
+.garden-banner {
+  display: none;
+}
+
+main.content > header > .garden-banner {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--garden-banner-height, 220px);
+  border-radius: var(--radius-m, 8px);
+  background-color: var(--background-secondary);
+  background-image: var(--garden-banner-image);
+  background-position: center var(--garden-banner-y, 50%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  pointer-events: none;
+}
+
+main.content > header > .garden-banner.garden-banner-fade {
+  border-radius: var(--radius-m, 8px) var(--radius-m, 8px) 0 0;
+  background-image:
+    linear-gradient(to bottom, transparent 0%, transparent 48%, var(--background-primary) 100%),
+    var(--garden-banner-image);
+  background-position: center top, center var(--garden-banner-y, 50%);
+  background-size: 100% 100%, cover;
+}

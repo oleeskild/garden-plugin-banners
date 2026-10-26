@@ -1,0 +1,47 @@
+{
+  "id": "banners",
+  "name": "Banners",
+  "version": "1.0.0",
+  "description": "Shows a banner image at the top of a note, from the same frontmatter property your Obsidian banner plugin uses.",
+  "author": "Ole Eskild Steensen",
+  "hooks": "index.js",
+  "styles": ["styles/banners.css"],
+  "slots": {
+    "common.head": "templates/head.njk",
+    "common.header": "templates/banner.njk"
+  },
+  "settings": [
+    {
+      "key": "properties",
+      "name": "Banner properties",
+      "description": "Frontmatter properties to read the banner image from, comma-separated. The first one a note has is used. \"banner\" is used by Banners, Banners Reloaded and Pixel Banner; \"art\" by Note Banners.",
+      "type": "text",
+      "default": "banner, art",
+      "env": "BANNERS_PROPERTIES"
+    },
+    {
+      "key": "height",
+      "name": "Height",
+      "description": "Banner height in pixels. Narrow screens get a shorter banner.",
+      "type": "number",
+      "default": 220,
+      "env": "BANNERS_HEIGHT"
+    },
+    {
+      "key": "fade",
+      "name": "Fade into page",
+      "description": "Fade the bottom of the banner into the page background.",
+      "type": "boolean",
+      "default": true,
+      "env": "BANNERS_FADE"
+    },
+    {
+      "key": "applyToHome",
+      "name": "Show on home page",
+      "description": "Also show a banner on the home page when it has one.",
+      "type": "boolean",
+      "default": true,
+      "env": "BANNERS_APPLY_TO_HOME"
+    }
+  ]
+}
