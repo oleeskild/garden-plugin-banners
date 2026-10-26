@@ -25,18 +25,26 @@ Works out of the box with:
 | [Note Banners](https://github.com/bagoftips/Note-Banners) | `art` | `banner-pos` (-100 bottom … 0 center … 100 top) |
 | [Banners](https://github.com/noatpad/obsidian-banners) | `banner` | `banner_y` (0 top … 1 bottom) |
 | [Banners Reloaded](https://github.com/dgcreations00/obsidian-banners-reloaded) | `banner` | `banner_y` (0% top … 100% bottom) |
-| [Pixel Banner](https://github.com/jparkerweb/pixel-banner) | `banner` | — |
+| [Pixel Banner](https://github.com/jparkerweb/pixel-banner) | `banner` | `banner-y` (0 top … 100 bottom) |
+| [Pretty Properties](https://github.com/anareaty/pretty-properties) | `banner` | `banner_position` (0 top … 100 bottom) |
+| [Banner Images](https://github.com/saltyfireball/obsidian-banner-images) | `banner_image`, `backdrop` | `banner_offset` (`top`, `center`, `bottom` or 0% … 100%) |
 
 The image can be a wikilink (`[[image.png]]`, `![[image.png]]`), a
 markdown link (`![](image.png)`), a vault path, or an external `https://`
 URL. Images from your vault are published along with the note.
 `banner: false` or `banner: none` turns the banner off for a note.
 
+Pixel Banner keyword banners (like `banner: mountains`) pick a random
+photo from Pexels or Unsplash each time Obsidian loads the note, so there
+is no image to publish and the note gets no banner. Run Pixel Banner's
+**Pin** command on the note to save the photo to your vault; it then
+shows up on your site too.
+
 ## Settings
 
 | Setting | Default | Description |
 | --- | --- | --- |
-| Banner properties | `banner, art` | Frontmatter properties to read the image from, comma-separated. The first one a note has is used. Change it if you've renamed the property in your Obsidian banner plugin. |
+| Banner properties | `banner, banner_image, backdrop, art` | Frontmatter properties to read the image from, comma-separated. The first one a note has is used. Change it if you've renamed the property in your Obsidian banner plugin. |
 | Height | `220` | Banner height in pixels. Narrow screens get a shorter banner. |
 | Fade into page | `true` | Fade the bottom of the banner into the page background. |
 | Show on home page | `true` | Also show a banner on the home page when it has one. |

@@ -1,7 +1,7 @@
 {
   "id": "banners",
   "name": "Banners",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Shows a banner image at the top of a note, from the same frontmatter property your Obsidian banner plugin uses.",
   "author": "Ole Eskild Steensen",
   "hooks": "index.js",
@@ -14,9 +14,9 @@
     {
       "key": "properties",
       "name": "Banner properties",
-      "description": "Frontmatter properties to read the banner image from, comma-separated. The first one a note has is used. \"banner\" is used by Banners, Banners Reloaded and Pixel Banner; \"art\" by Note Banners.",
+      "description": "Frontmatter properties to read the banner image from, comma-separated. The first one a note has is used. \"banner\" is used by Banners, Banners Reloaded, Pixel Banner and Pretty Properties; \"banner_image\" and \"backdrop\" by Banner Images; \"art\" by Note Banners.",
       "type": "text",
-      "default": "banner, art",
+      "default": "banner, banner_image, backdrop, art",
       "env": "BANNERS_PROPERTIES"
     },
     {

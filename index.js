@@ -40,6 +40,9 @@ function imageUrl(value) {
   if (/^https?:\/\//i.test(target)) return target;
   // Local file:// paths and other schemes can't be served by the site
   if (/^[a-z][a-z0-9+.-]*:/i.test(target)) return null;
+  // Pixel Banner keywords like "mountains" are searched on Pexels/Unsplash
+  // inside Obsidian; there's no file to publish, so they get no banner
+  if (!/\.[a-z0-9]+$/i.test(target.split("/").pop())) return null;
 
   // Published vault images live under /img/user/<vault path>; the Obsidian
   // plugin rewrites frontmatter links to full vault paths when publishing.
@@ -57,6 +60,15 @@ function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
 }
 
+const KEYWORD_POSITIONS = { top: 0, center: 50, bottom: 100 };
+
+// A number from a frontmatter value like 40, "40" or "40%", or null
+function percentage(raw) {
+  if (raw === undefined || raw === null || raw === "") return null;
+  const number = parseFloat(String(raw).trim());
+  return Number.isFinite(number) ? number : null;
+}
+
 // Vertical focus as a CSS percentage (0 = top, 50 = center, 100 = bottom)
 function verticalPosition(props) {
   // Note Banners: banner-pos from -100 (bottom) to 100 (top), 0 = center
@@ -65,15 +77,21 @@ function verticalPosition(props) {
     return (100 - clamp(notePos, -100, 100)) / 2;
   }
 
-  // Banners: banner_y from 0 to 1. Banners Reloaded: 0% to 100%.
-  for (const key of ["banner_y", "banner-y"]) {
-    const raw = props[key];
-    if (raw === undefined || raw === null || raw === "") continue;
-    const text = String(raw).trim();
-    const number = parseFloat(text);
-    if (!Number.isFinite(number)) continue;
-    if (text.endsWith("%") || number > 1) return clamp(number, 0, 100);
-    return clamp(number * 100, 0, 100);
+  // Banners: banner_y from 0 to 1. Banners Reloaded: banner_y "0%" to "100%".
+  const bannersY = percentage(props["banner_y"]);
+  if (bannersY !== null) {
+    const text = String(props["banner_y"]).trim();
+    if (text.endsWith("%") || bannersY > 1) return clamp(bannersY, 0, 100);
+    return clamp(bannersY * 100, 0, 100);
+  }
+
+  // Pixel Banner: banner-y. Pretty Properties: banner_position. Banner
+  // Images: banner_offset, which also takes top/center/bottom. All 0 to 100.
+  for (const key of ["banner-y", "banner_position", "banner_offset"]) {
+    const keyword = String(props[key] ?? "").trim().toLowerCase();
+    if (Object.hasOwn(KEYWORD_POSITIONS, keyword)) return KEYWORD_POSITIONS[keyword];
+    const value = percentage(props[key]);
+    if (value !== null) return clamp(value, 0, 100);
   }
 
   return 50;
